@@ -20,7 +20,7 @@ type Task = {
 };
 
 type TaskDetails = Task & {
-  hint: string;
+  hints: string[];
   description: string;
   initial_code: string;
 };
@@ -58,6 +58,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'problem' | 'results'>('problem');
   const [solvedTasks, setSolvedTasks] = useState<Record<string, boolean>>({});
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [revealedHintCount, setRevealedHintCount] = useState(1);
 
   useEffect(() => {
     // Load solved tasks from local storage
@@ -93,6 +94,7 @@ export default function Home() {
           setCode(savedCode !== null ? savedCode : data.initial_code);
           setResults(null);
           setActiveTab('problem');
+          setRevealedHintCount(1);
         })
         .catch(err => console.error("Failed to load task details", err));
     }
@@ -289,22 +291,36 @@ export default function Home() {
                     >
                       {taskDetails.description}
                     </ReactMarkdown>
-                    {taskDetails.hint && (
+                    {taskDetails.hints.length > 0 && (
                       <div className="mt-8 border-t border-[#404040] pt-6">
-                        <details className="group">
-                          <summary className="flex items-center cursor-pointer list-none font-medium text-gray-300 hover:text-white transition-colors">
-                            <span className="mr-2">💡</span> Hint
-                            <ChevronDown className="w-4 h-4 ml-auto group-open:rotate-180 transition-transform" />
-                          </summary>
-                          <div className="mt-4 text-gray-400 text-sm pl-6 border-l-2 border-[#404040] py-1 markdown-body bg-transparent">
-                            <ReactMarkdown 
-                              remarkPlugins={[remarkGfm, remarkMath]}
-                              rehypePlugins={[rehypeKatex]}
-                            >
-                              {taskDetails.hint}
-                            </ReactMarkdown>
-                          </div>
-                        </details>
+                        {taskDetails.hints.slice(0, revealedHintCount).map((hint, index) => (
+                          <details
+                            className={taskDetails.hints.length === 1 ? 'group' : 'group mb-4'}
+                            key={index}
+                          >
+                            <summary className="flex items-center cursor-pointer list-none font-medium text-gray-300 hover:text-white transition-colors">
+                              <span className="mr-2">💡</span>
+                              {taskDetails.hints.length === 1 ? 'Hint' : `Tip ${index + 1}`}
+                              <ChevronDown className="w-4 h-4 ml-auto group-open:rotate-180 transition-transform" />
+                            </summary>
+                            <div className="mt-4 text-gray-400 text-sm pl-6 border-l-2 border-[#404040] py-1 markdown-body bg-transparent">
+                              <ReactMarkdown
+                                remarkPlugins={[remarkGfm, remarkMath]}
+                                rehypePlugins={[rehypeKatex]}
+                              >
+                                {hint}
+                              </ReactMarkdown>
+                            </div>
+                          </details>
+                        ))}
+                        {revealedHintCount < taskDetails.hints.length && (
+                          <button
+                            className="text-sm text-orange-400 hover:text-orange-300 transition-colors"
+                            onClick={() => setRevealedHintCount(count => count + 1)}
+                          >
+                            Ещё подсказка
+                          </button>
+                        )}
                       </div>
                     )}
                   </>

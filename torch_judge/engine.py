@@ -6,6 +6,7 @@ import time
 import traceback
 from typing import Any
 
+from torch_judge.hints import get_hints
 from torch_judge.tasks import get_task, TASKS
 from torch_judge.progress import mark_solved, mark_attempted
 
@@ -107,5 +108,21 @@ def hint(task_id: str) -> None:
     if task is None:
         print(f"{_RED}Unknown task '{task_id}'.{_RESET}")
         return
-    print(f"\n{_YELLOW}💡 Hint for {task['title']}:{_RESET}")
-    print(f"   {task['hint']}\n")
+    hints = get_hints(task)
+    if not hints:
+        print(f"\n{_YELLOW}No hints available for {task['title']}.{_RESET}\n")
+        return
+    if len(hints) == 1:
+        print(f"\n{_YELLOW}💡 Hint for {task['title']}:{_RESET}")
+        print(f"   {hints[0]}\n")
+        return
+
+    shown_levels = getattr(hint, "_shown_levels", {})
+    level = shown_levels.get(task_id, 0)
+    shown_levels[task_id] = min(level + 1, len(hints) - 1)
+    hint._shown_levels = shown_levels
+
+    print(f"\n{_YELLOW}💡 Hint {level + 1}/{len(hints)} for {task['title']}:{_RESET}")
+    print(f"   {hints[level]}\n")
+    if level + 1 < len(hints):
+        print(f"   {_DIM}Run hint(\"{task_id}\") again for the next hint.{_RESET}\n")
