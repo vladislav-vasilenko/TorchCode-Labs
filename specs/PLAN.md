@@ -6,7 +6,7 @@
 | 020-llm-judge | ✅ todo | — | план: Sol High | |
 | 030-tracks-registry | ✅ todo | — | план: Sol High | |
 | 040-upstream-theory | ✅ todo | — | план: Sol High | |
-| 101-distributed-theory | ⬜ todo | — | план: Sol Med | |
+| 101-distributed-theory | ✅ todo | — | план: Sol Med | |
 | 102-optimizer-memory-math | ⬜ todo | — | план: Terra Med | |
 | 103-ring-allreduce | ⬜ todo | — | план: Terra Med | |
 | 104-ddp-gradient-sync | ⬜ todo | — | план: Terra Med | |
