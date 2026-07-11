@@ -2,11 +2,12 @@
 
 | Spec | Статус | Ветка | Модель | Заметки |
 |---|---|---|---|---|
-| 010-hints-engine | ✅ todo | — | план: Sol High | |
-| 020-llm-judge | ✅ todo | — | план: Sol High | |
-| 030-tracks-registry | ✅ todo | — | план: Sol High | |
-| 040-upstream-theory | ✅ todo | — | план: Sol High | |
-| 101-distributed-theory | ✅ todo | — | план: Sol Med | |
+| 010-hints-engine | ✅ done | spec/010-hints-engine | Sol High | pytest: 7 тестов; web-кнопка не проверена руками |
+| 020-llm-judge | ✅ done | spec/020-llm-judge | Sol High | default gpt-5.6-luna; двухуровневые моки |
+| 030-tracks-registry | ✅ done | spec/030-tracks-registry | Sol High | фикстуры через monkeypatch |
+| 040-upstream-theory | ✅ done | spec/040-upstream-theory | Sol High + Terra Med | постфактум-спек; заголовки материалов вариативны; ppo-спойлер убран |
+| 101-distributed-theory | ✅ done | spec/101-distributed-theory | Sol Med | 29 ячеек, 7 структурных тестов (AST-запрет решений) |
+| 101-fix-critique | ✅ done | spec/101-fix-critique | Terra Med | аудит-правки: bf16-модель, world size, SHARD_GRAD_OP, barrier-замеры |
 | 102-optimizer-memory-math | ⬜ todo | — | план: Terra Med | |
 | 103-ring-allreduce | ⬜ todo | — | план: Terra Med | |
 | 104-ddp-gradient-sync | ⬜ todo | — | план: Terra Med | |
@@ -17,3 +18,8 @@
 | 109-results-tooling-conclusions | ⬜ todo | — | план: Terra Med | |
 | 2XX inference track | 📝 спеки не написаны | — | — | после эпика 1 |
 | 3XX nanogpt/positional track | 📝 спеки не написаны | — | — | после эпика 1 |
+
+## Кандидаты / перед интервью
+- [ ] accumulation / DistributedSampler / no_sync — досмотреть при ревью 108
+- [ ] α–β модель коллективов, топология сети — только если дойдёт до GigaChat-core интервью
+- [ ] FSDP чекпоинтинг (state_dict_type, resume при смене world size) — доки за 1–2 дня до интервью
