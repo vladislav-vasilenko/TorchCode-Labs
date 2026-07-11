@@ -24,8 +24,16 @@ def get_task(task_id: str) -> dict[str, Any] | None:
     return TASKS.get(task_id)
 
 
-def list_tasks() -> list[tuple[str, dict[str, Any]]]:
+def list_tasks(track: str | None = None) -> list[tuple[str, dict[str, Any]]]:
+    tasks = TASKS.items()
+    if track is not None:
+        tasks = (
+            (task_id, task)
+            for task_id, task in tasks
+            if task.get("track", "core") == track
+        )
+
     return sorted(
-        TASKS.items(),
+        tasks,
         key=lambda t: DIFFICULTY_ORDER.get(t[1]["difficulty"], 9),
     )
