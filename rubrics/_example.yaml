@@ -1,0 +1,9 @@
+title: "Conclusions H1–H4"
+criteria:
+  - id: numbers_cited
+    text: "Каждый вывод ссылается на конкретные числа из таблицы результатов"
+    weight: 2
+  - id: hypotheses_resolved
+    text: "H1–H4 явно подтверждены или опровергнуты"
+    weight: 2
+pass_threshold: 0.7

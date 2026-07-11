@@ -25,11 +25,13 @@ classifiers = [
 ]
 dependencies = [
     "torch>=2.0",
+    "pyyaml",
 ]
 
 [project.optional-dependencies]
 dev = [
     "build",
+    "pytest-socket",
     "twine",
 ]
 
