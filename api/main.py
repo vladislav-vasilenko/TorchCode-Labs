@@ -8,6 +8,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from torch_judge.tasks import TASKS, get_task
+from torch_judge.hints import get_hints
 from torch_judge.web_engine import execute_code
 from api.parser import get_all_templates
 
@@ -44,13 +45,15 @@ def get_task_details(task_id: str):
     task = get_task(task_id)
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")
-        
+
     template = TEMPLATES.get(task_id, {})
+    hints = get_hints(task)
     return {
         "id": task_id,
         "title": task["title"],
         "difficulty": task.get("difficulty", "Unknown"),
-        "hint": task.get("hint", ""),
+        "hint": hints[0] if hints else "",
+        "hints": hints,
         "description": template.get("description", "Description not found."),
         "initial_code": template.get("initial_code", "# Write your code here.")
     }
