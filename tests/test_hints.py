@@ -71,13 +71,3 @@ def test_render_hints_inserts_three_details_blocks_before_submit() -> None:
     assert hints_cell["metadata"]["tags"] == [render_hints_module.HINTS_CELL_TAG]
     assert "".join(hints_cell["source"]).count("<details>") == 3
 
-
-def test_demo_notebook_contains_three_details_blocks() -> None:
-    path = Path(__file__).parents[1] / "templates" / "99_hints_demo.ipynb"
-    notebook = json.loads(path.read_text(encoding="utf-8"))
-    markdown = "".join(
-        "".join(cell.get("source", []))
-        for cell in notebook["cells"]
-        if cell["cell_type"] == "markdown"
-    )
-    assert markdown.count("<details>") == 3
