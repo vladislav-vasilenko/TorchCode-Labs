@@ -9,7 +9,7 @@
 | 101-distributed-theory | ✅ done | spec/101-distributed-theory | Sol Med | 29 ячеек, 7 структурных тестов (AST-запрет решений) |
 | 101-fix-critique | ✅ done | spec/101-fix-critique | Terra Med | аудит-правки: bf16-модель, world size, SHARD_GRAD_OP, barrier-замеры |
 | 102-optimizer-memory-math | ✅ done | spec/102-optimizer-memory-math | Sol High | TASK + template/solution; 6 новых тестов, полный pytest: 31 passed |
-| 103-ring-allreduce | ⬜ todo | — | план: Terra Med | |
+| 103-ring-allreduce | ✅ done | spec/103-ring-allreduce | Terra Med | TASK + template/solution; 6 новых тестов, полный pytest: 37 passed |
 | 104-ddp-gradient-sync | ⬜ todo | — | план: Terra Med | |
 | 105-zero-shard-states | ⬜ todo | — | план: Sol Med | |
 | 106-fsdp-wrap-policy | ⬜ todo | — | план: Terra Med | |
